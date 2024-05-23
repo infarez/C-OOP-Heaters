@@ -95,4 +95,51 @@ public:
 };
 
 
+
+// Контейнеры
+class HeatersContainer // базовый класс
+{
+private:
+      HeatersPtr *HeatersBox; // указатель на указатель
+      int HeatersCount;
+      int MaxSize;
+
+public:
+      HeatersContainer(int MaxSize);
+      virtual ~HeatersContainer();
+      void AddHeaters(HeatersPtr newHeaters); // добавить
+      int GetCount() const {return HeatersCount; };
+      virtual HeatersPtr GetByIndex(int index) const {return HeatersBox[index];} // посчитать
+
+};
+
+
+
+class VectorHeatersContainer : public HeatersContainer
+{
+private:
+      vector<HeatersPtr> HeatersBox;
+public:
+
+      void AddHeaters(HeatersPtr newHeaters) {HeatersBox.push_back(newHeaters);}
+      int GetCount() const { return HeatersBox.size(); }
+      HeatersPtr GetByIndex(int index) const {return HeatersBox[index];}
+};
+
+
+
+
+class ListHeatersContainer : public HeatersContainer
+{
+private:
+      list<HeatersPtr> HeatersBox;
+
+public:
+      void AddHeaters(HeatersPtr newHeaters) {HeatersBox.push_back(newHeaters);}
+      int GetCount() const { return HeatersBox.size(); }
+
+};
+
+
+
 #endif // HEATERS_H_INCLUDED
